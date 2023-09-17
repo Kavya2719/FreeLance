@@ -1,0 +1,425 @@
+class WS // Weather System
+{
+	variable = {
+		// Local Storage
+		pressure[5], sunshine[5], rainfall[5], temperature[5], windSpeed[5], windDirection[5]
+
+		// array indexes signifies
+		// 0th index -> min
+		// 1st index -> max
+		// 2nd index -> avg
+		// 3rd index -> sum
+		// 4th index -> count
+
+
+		timeStamp[6];
+		// storing the time of the last entry of our data
+
+		// 0th index for pressure
+		// 1st for rainfall
+		// 2nd for temperature
+		// 3rd for windspeed
+		// 4th for winddirection
+		// 5th for sunshine
+
+
+		// for charging system
+		battery;
+	}
+
+	key = {
+		station_id;
+	}
+
+	Important functions = {	
+		collectPressure();
+		collectRainfall();
+		collectTemperature();
+		collectWindSpeed();
+		collectWindDirection();
+		collectSunshine();
+
+		// all these funcitons efficiently store min, max, avg, sum and count in their respective arrays
+		// also storing respective timestamps
+
+		getPressure();
+		getRainfall();
+		getTemperature();
+		getWindSpeed();
+		getWindDirection();
+		getSunshine();
+		// returns back the respective arrays and also reset/empty the respective array & count we have
+
+		getTimeStamp();
+		// returns back the timestamp array and also empties the timestamp array
+
+		charge() = {
+			if(need_charge) solarCharge();
+			if(need_charge) windCharge();
+		}
+		// charging system with the help of solar and wind system
+		// Actual Implementation is explained later while explaining algorithms
+
+
+		emergency_help();
+		// in case there is got any emergency
+		// or got damaged by attacks of animals or something else
+	}
+}
+
+
+
+
+
+class WWS // Wilderness Weather Stations
+{
+	variables = {
+		m 	// no of weather stations this WWS has		
+		array of station_ids of size m; 	// contains all those WS's station ids that are connected by this WWS.
+
+		// Local Storage
+		pressure[5][m], 	rainfall[5][m], 	temperature[5][m]
+		windSpeed[5][m],	windDirection[5][m],	sunshine[5][m]
+
+		// as there are m stations in WWS and each station has its array[5] data
+
+		timeStamp[6][m];
+		// storing the time of the last entry of each WS
+
+		// for charging purposes
+		battery
+	}
+
+	key = {
+		station_id;
+	}
+
+ 	Important functions = {
+	
+		collectPressure();
+		collectRainfall();
+		collectTemperature();
+		collectWindSpeed();
+		collectWindDirection();
+		collectSunshine();
+		// all these funcitons efficiently store required arrays containing aggregated data of all the WS
+	
+
+		getPressure();
+		getRainfall();
+		getTemperature();
+		getWindSpeed();
+		getWindDirection();
+		getSunshine();
+		// returns back the respective arrays and also deleting the data when get uploaded successfully.
+
+
+		getTimeStamp();
+		// returns back the timestamp array and also empties the timestamp array
+
+
+		charge() = {
+			if(need_charge) solarCharge();
+			if(need_charge) windCharge();
+		}
+		// charging system, same as mentioned above
+
+		emergency_help();
+		// in case there is got any emergency
+		// or got damaged by attacks of animals or something else
+	}
+}
+
+
+
+
+
+class CDMS // Central Data Management System
+{
+	variables = {
+		n		// no of WWS this CDMS contains
+
+		array of station_ids of size m; 	// contains all those WS's station ids that are connected by this WWS.
+
+
+		// Local Storage
+		
+		// there are n stations in WWS and each station has its own m number of WS data
+		// as we know m can also be different for different WWS
+		// hence we require a linkedlist here for storing a m size data
+		// where m is varying according to WWS
+		// and we require n likedlist such that
+		// hence we need an array of those linkedlist of size n
+
+
+		linkedList_pressure[n];
+
+		// of nodetype = {
+			pressure[5];
+			nodetype *next;
+		}
+
+		// similarly,
+		linkedList_rainfall[n], linkedList_temperature[n], linkedList_windSpeed[n], linkedList_windDirection[n], linkedList_Sunshine[n]
+
+
+		// in similar way
+		linkedList_tmeStamp[n];
+		// storing the time of the last entry of each WWS's WS
+
+
+		// for charging purposes
+		battery
+	}
+
+	key = {
+		station_id;
+	}
+
+ 	Important functions = {
+	
+		collectPressure();
+		collectRainfall();
+		collectTemperature();
+		collectWindSpeed();
+		collectWindDirection();
+		collectSunshine();
+		// all these funcitons efficiently store required linkedList containing aggregated data of all the WWS
+	
+
+		getPressureReport();
+		getRainfallReport();
+		getTemperatureReport();
+		getWindSpeedReport();
+		getWindDirectionReport();
+		getSunshineReport();
+		// returns back the respective linkedList
+
+
+		getTimeStamp();
+		// returns back the timestamp array and also empties the timestamp
+
+		charge() = {
+			if(need_charge) solarCharge();
+			if(need_charge) windCharge();
+		}
+		// charging system, same as mentioned above
+
+		emergency_help();
+		// in case there is got any emergency
+		// or got damaged by attacks of animals or something else
+	}
+}
+
+
+
+class Agencies{
+	linkedList_pressure[n],	linkedList_rainfall[n], linkedList_temperature[n]
+	linkedList_windSpeed[n], linkedList_windDirection[n], linkedList_Sunshine[n]
+
+	linkedList_tmeStamp[n];
+	// for storing data of CDMS
+
+	collectReport(); // from CDMS daily	
+	publishReport(); // to the audience
+}
+// third party agencies (SES Australia, News Agencies, Security Office)
+
+
+
+// this structure is optimised for limited memory, battery, low bandwidth, and low processing power
+
+
+// as we have limited memory, we are not making other classes
+
+// in increased memory, increased number of systems, and increased processing power
+// we can make a class of data
+
+class Data
+{
+	pressure, temperature, windSpeed, windDirection, sunshine, rainfall, timestamp
+}
+
+// Advantages
+1. lines of code will be decreased
+2. readability of the code will increase
+3. code structured will get simpler and easy to understand rather compared to as of now
+
+
+
+// QnAs
+1)
+
+Important variables = {
+	pressure, rainfall, sunshine, windSpeed, windDirection, temperature, timeStamp
+	battery
+}
+
+Keys = {
+	station_id of WS
+	station_id of WWS
+	station_id of CDMS
+}
+
+Ranges = {
+	pressure -> [850mb, 1085mb] // milibars
+	temperature -> [-89'C to +58'C] // degree Celsius
+	sunshine -> [0,24] // hours
+	rainfall -> [0,2] inches per day
+	windDirection -> [0', 360'] // degrees
+	windSpeed -> [0, 372] kmph
+
+	// can add references for these scientific ranges
+
+	// Pressure can range from 850 millibars (mb) at the top of Mount Everest to 1085 mb at the bottom of the Mariana Trench.
+	// Temperature can range from -89°C at Vostok Station in Antarctica to 58°C at Death Valley in California.
+	// Sunshine can range from 0 hours in the Arctic and Antarctic to 24 hours in the tropics.
+	// Wind direction can range from 0° to 360°, but it is typically more common to see winds blowing from the west or east.
+	// Wind speed can range from calm to over 300 km/h. The fastest wind speed ever recorded was 372 km/h in Australia in 1996.
+
+	// Reassure the range of rainfall in inch per day
+
+	battery -> [0,100] percent
+}
+
+// timeStamp is basically a string of dd-mm-yyyy-hh-mm-ss reprenting date and time
+
+
+
+2)
+
+Data Structure = {
+	arrays for local storage in WWS
+	array of linkedlist for local storage in CDMS
+	array of station ids in WWS
+	array of station ids in CDMS
+}
+
+Efficiency ->
+
+1. Random Access: Arrays provide direct and constant-time access to elements based on their index. This means that accessing any element in an array takes the same amount of time, regardless of its position. This makes arrays efficient for retrieving and modifying elements at any given index.
+
+2. Contiguous Memory Allocation: Arrays store elements in a contiguous block of memory, which allows for efficient memory access. The proximity of elements in memory enables faster traversal and reduces cache misses, resulting in improved performance compared to non-contiguous data structures.
+
+3. Efficiency: Due to their simplicity and low-level representation, arrays are often more efficient in terms of time and space compared to other data structures. They have a small memory overhead since they only store the elements themselves and not additional pointers or metadata.
+
+3. Iteration: Arrays provide efficient iteration over elements. Since the elements are stored consecutively, it is straightforward to iterate through the array using a simple loop, making operations like searching, sorting, or applying functions to all elements efficient and convenient.
+
+4. Easy Implementation: Arrays are one of the simplest and most basic data structures, making them easy to understand and implement in various programming languages. Most programming languages provide built-in support for arrays, offering a straightforward way to work with collections of data.
+
+5. Compatibility with Low-level Operations: Arrays are compatible with low-level operations and can be directly manipulated at the hardware level. They are often used as a building block for implementing other data structures and algorithms.
+
+and more
+
+// can write other advantages of general array basically and then can translate to it according to the question's language.
+// also can write advantages for linkedlist as we are using that too.
+
+// can add references for these advantages with page number
+
+
+
+3) types of operations of WS are already explained above in the classes
+
+
+4) 
+charge(){
+	while(battery < threshold_value) {
+		solarcharge();
+		windcharge();
+	}
+}
+// can consider the concept of parallel processing as well.
+// can add extra reference for it.
+
+
+get data operation -> algo -> copying an array/linkedlist, resetting/deleting the original array/ linkedlist elements and then returning the copied array/linkedlist
+
+
+Time Complexity and Space Complexity // O(length) // length of array or linkedlist
+
+// for WS
+Time Complexity and Space Complexity - O(1) constant time and space complexity // O(5)
+
+// for WWS
+Time Complexity and Space Complexity - O(m) linear complexity // O(5*m)
+
+// for CDMS
+Time Complexity and Space Complexity - O(n * m) // n = length of array, m = length of linkedlist // O(5*m*n)
+
+
+
+collect data operation
+Algo -> 
+
+// for WS
+array[0] = min(array[0], newData);
+array[1] = max(array[1], newData);
+array[2] = (array[2] + newData) / (array[4] + 1);
+array[3] += newData;
+array[4]++;
+
+// assuming datas are resetted accordingly
+array[0] = inf, array[1] = array[2] = array[3] = array[4] = 0;
+ 
+
+// for WWS
+looping through all m WS and storing respective datas in the WWS's array respectively.
+
+// for CDMS
+looping through all n WWS and storing respective WS's datas in the CDMS's array of linkedlist respectively.
+
+
+
+Time Complexity and Space Complexity
+
+// for WS
+Time Complexity and Space Complexity - O(1) constant time and space complexity // O(5)
+
+// for WWS
+Time Complexity and Space Complexity - O(m) linear complexity // O(5*m)
+
+// for CDMS
+Time Complexity and Space Complexity - O(n * m) // n = length of array, m = length of linkedlist // O(5*m*n)
+
+// can add reference of time and space complexity of array and linkedlist
+// required 5 references are done ;)
+
+
+Reason for using these algos
+-> one of the best time and space complexities for achieving these operations
+// can add references too that other data strucutues would have more time and space complexity
+
+
+5.
+got better memory, battery and processing power and increased number of stations
+
+data structures - as mentioned above // copy pasting it again below
+
+// as we have limited memory, we are not making other classes
+
+// in increased memory, increased number of systems, and increased processing power
+// we can make a class of data
+
+class Data
+{
+	pressure, temperature, windSpeed, windDirection, sunshine, rainfall, timestamp
+}
+
+// it requires more memory
+
+// Advantages
+1. lines of code will be decreased
+2. readability of the code will increase
+3. code structured will get simpler and easy to understand rather compared to as of now
+4. now data can be easily converted to json format and can be easily transferred with the help of APIs.
+
+
+operations -> same
+
+algorithms -> 
+instead of storing data in array we are now storing them in the objects now, simple.
+
+// can add algorithms for storing data in the object
+
+Efficiency got incraesed as we got less lines of code and got more simpler and useful structure for storing data
+// can elaborate the advantages here
